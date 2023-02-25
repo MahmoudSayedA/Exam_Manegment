@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projects.exam_management.doctor.DoctorDTO;
+import com.projects.exam_management.doctor.Doctor;
 
 @RestController
 public class AthuenticatorController {
@@ -18,7 +18,7 @@ public class AthuenticatorController {
         return this.authenticator.signIn(email, password);
     }
     @PostMapping("/register")
-    public boolean register(@RequestBody DoctorDTO doctorDTO){
+    public boolean register(@RequestBody Doctor doctorDTO){
         return this.authenticator.register(doctorDTO);
     }
 }
