@@ -22,14 +22,14 @@ public class DoctorController {
         return this.doctorService.findByDoctorId(id);
     }
     @PostMapping("/add")
-    public DoctorDTO add(@RequestBody DoctorDTO doctorDTO) {
+    public DoctorDTO add(@RequestBody Doctor doctorDTO) {
         return this.doctorService.add(doctorDTO);
     }
     @PostMapping("/update")
-    public DoctorDTO udpdate(@RequestBody DoctorDTO doctorDTO) {
+    public DoctorDTO udpdate(@RequestBody Doctor doctorDTO) {
         return this.doctorService.udpdate(doctorDTO);
     }
-    @DeleteMapping("/{id}")
+    // @DeleteMapping("/{id}")
     public void deleteById(@PathVariable("id") int id){
         this.doctorService.deleteById(id);
     }

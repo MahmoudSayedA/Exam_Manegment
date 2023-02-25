@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "doctor")
-class Doctor {
+public class Doctor {
     @Id
     @SequenceGenerator(
         name = "Doctor_sequence",
@@ -58,7 +58,7 @@ class Doctor {
 
     public static Doctor toEntity(DoctorDTO doctor) {
         return doctor == null ? null
-                : builder().doctorId(doctor.getDoctorId()).email(doctor.getEmail()).password(doctor.getPassword())
+                : builder().doctorId(doctor.getDoctorId()).email(doctor.getEmail())
                         .firstName(doctor.getFirstName()).lastName(doctor.getLastName()).build();
     }
 }
