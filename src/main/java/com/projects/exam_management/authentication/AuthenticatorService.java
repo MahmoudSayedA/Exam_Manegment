@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.projects.exam_management.doctor.Doctor;
-import com.projects.exam_management.doctor.DoctorDTO;
 import com.projects.exam_management.doctor.DoctorService;
 
 @Service
