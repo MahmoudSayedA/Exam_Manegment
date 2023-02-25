@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.3</version>
+		<version>3.0.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.projects</groupId>
-	<artifactId>exam_management</artifactId>
+	<artifactId>Exam_Management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>exam_management</name>
+	<name>Exam_Management</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
