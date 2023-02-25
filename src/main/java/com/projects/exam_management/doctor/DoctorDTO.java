@@ -14,11 +14,10 @@ public class DoctorDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
 
     public static DoctorDTO toDTO(Doctor doctor) {
         return doctor == null ? null
-                : builder().doctorId(doctor.getDoctorId()).email(doctor.getEmail()).password(doctor.getPassword())
+                : builder().doctorId(doctor.getDoctorId()).email(doctor.getEmail())
                         .firstName(doctor.getFirstName()).lastName(doctor.getLastName()).build();
     }
 }
