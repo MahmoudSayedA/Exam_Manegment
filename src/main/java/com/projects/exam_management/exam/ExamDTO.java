@@ -1,4 +1,4 @@
-package com.projects.exam_management.examc;
+package com.projects.exam_management.exam;
 
 import com.projects.exam_management.course.Course;
 import com.projects.exam_management.doctor.Doctor;

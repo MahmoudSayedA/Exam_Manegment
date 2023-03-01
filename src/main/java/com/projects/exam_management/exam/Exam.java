@@ -1,9 +1,7 @@
-package com.projects.exam_management.examc;
+package com.projects.exam_management.exam;
 
 import com.projects.exam_management.course.Course;
-import com.projects.exam_management.course.CourseDTO;
 import com.projects.exam_management.doctor.Doctor;
-import com.projects.exam_management.doctor.DoctorDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

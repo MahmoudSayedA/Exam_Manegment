@@ -1,8 +1,5 @@
-package com.projects.exam_management.examc;
+package com.projects.exam_management.exam;
 
-import com.projects.exam_management.course.Course;
-import com.projects.exam_management.course.CourseDTO;
-import com.projects.exam_management.course.CourseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

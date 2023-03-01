@@ -1,4 +1,4 @@
-package com.projects.exam_management.examc;
+package com.projects.exam_management.exam;
 
 import org.springframework.web.bind.annotation.*;
 
