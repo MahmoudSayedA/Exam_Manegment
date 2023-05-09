@@ -5,10 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.projects.exam_management.course.CourseService;
+
 @Service
 public class DoctorService {
     @Autowired
     DoctorRepo doctorRepo;
+    @Autowired
+    CourseService courseService;
 
     public Doctor findByEmail(String email) {
         return this.doctorRepo.findByEmail(email).orElse(null);
@@ -27,6 +31,7 @@ public class DoctorService {
     }
 
     public void deleteById(int id){
+        this.courseService.deleteByDoctorId(id);
         this.doctorRepo.deleteById(id);
     }
     

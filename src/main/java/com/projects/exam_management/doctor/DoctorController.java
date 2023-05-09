@@ -29,7 +29,7 @@ public class DoctorController {
     public DoctorDTO udpdate(@RequestBody Doctor doctorDTO) {
         return this.doctorService.udpdate(doctorDTO);
     }
-    // @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable("id") int id){
         this.doctorService.deleteById(id);
     }

@@ -31,6 +31,11 @@ public class CourseService {
         this.courseRepo.deleteById(id);
         return "deleted";
     }
+    public String deleteByDoctorId(int id) {
+        this.courseRepo.deleteByDoctorId(id);
+        return "deleted";
+    }
+
 
     private boolean goodToBeSaved(Course courseDTO) {
         if (courseDTO.getCourseName().length() < 2)
