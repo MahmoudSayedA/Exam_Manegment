@@ -1,4 +1,4 @@
-package Question;
+package com.projects.exam_management.Question;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

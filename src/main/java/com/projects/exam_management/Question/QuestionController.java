@@ -1,4 +1,4 @@
-package Question;
+package com.projects.exam_management.Question;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
