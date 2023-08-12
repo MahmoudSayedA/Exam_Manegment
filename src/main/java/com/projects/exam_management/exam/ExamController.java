@@ -2,10 +2,20 @@ package com.projects.exam_management.exam;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/exam")
 public class ExamController {
     private ExamService examService;
+
+    public ExamController(ExamService examService){
+        this.examService = examService;
+    }
+    @GetMapping("/findAll")
+    public List<Exam> findAll(){
+        return examService.findAllExam();
+    }
     @GetMapping("/countByCourseId/{id}")
     public int countByCourseId(@PathVariable int id){
         return examService.countByCourseId(id);
@@ -33,13 +43,14 @@ public class ExamController {
         return examService.findByCourseId(id);
     }
     @PostMapping("/insert")
-    public Exam insert(@PathVariable Exam exam){
+    public ExamDTO insert(@RequestBody Exam exam) {
         return examService.addExam(exam);
     }
     @PostMapping("/deleteByQuestionId")
     public boolean deleteByQuestionId(@PathVariable int id){
         return examService.deleteByQuestionId(id);
     }
+
 
 
 }

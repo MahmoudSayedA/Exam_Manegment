@@ -10,7 +10,7 @@ import com.projects.exam_management.doctor.DoctorService;
 public class AuthenticatorService {
     @Autowired
     DoctorService doctorService;
-    
+
     public boolean signIn(String email, String password){
         Doctor doctorDTO =doctorService.findByEmail(email);
         if(doctorDTO==null)
@@ -20,7 +20,7 @@ public class AuthenticatorService {
 
         return true;
     }
-    
+
     public boolean register(Doctor doctor){
         if(this.doctorService.validToBeStored(doctor)){
             if(!(this.doctorService.add(doctor) == null))

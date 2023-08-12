@@ -20,4 +20,6 @@ public class DoctorDTO {
                 : builder().doctorId(doctor.getDoctorId()).email(doctor.getEmail())
                         .firstName(doctor.getFirstName()).lastName(doctor.getLastName()).build();
     }
+
+
 }

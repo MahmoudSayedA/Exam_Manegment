@@ -8,7 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,14 +21,15 @@ public class Question {
     private Long id;
     private String problem;
     private String answer;
-    private questionLevel level;
-    private QuestionType type;
-    @ManyToOne
+    private String option1;
+    private String option2;
+    private String option3;
+    private String option4;
+    @OneToOne
     private Course course;
-    @ManyToOne
+    @OneToOne
     private Doctor doctor;
-    @OneToMany
-    private ArrayList<OptionalAnswer> options;
+
 
 
 

@@ -14,7 +14,7 @@ public class AthuenticatorController {
     private AuthenticatorService authenticator;
 
     @PostMapping("/login")
-    public Boolean signIn(@RequestParam("email")String email,@RequestParam("password") String password){
+public Boolean signIn(@RequestParam("email")String email,@RequestParam("password") String password){
         return this.authenticator.signIn(email, password);
     }
     @PostMapping("/register")

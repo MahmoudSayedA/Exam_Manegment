@@ -14,15 +14,15 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionDTO {
-    private Long id;
     private String problem;
+    private String option1;
+    private String option2;
+    private String option3;
+    private String option4;
     private String answer;
-    private questionLevel level;
-    private QuestionType type;
     private Course course;
     private Doctor doctor;
-    private ArrayList<OptionalAnswer> options;
     public static QuestionDTO toDTO(Question question){
-        return builder().answer(question.getAnswer()).id(question.getId()).level(question.getLevel()).course(question.getCourse()).doctor(question.getDoctor()).options(question.getOptions()).problem(question.getProblem()).type(question.getType()).build();
+        return builder().answer(question.getAnswer()).course(question.getCourse()).doctor(question.getDoctor()).problem(question.getProblem()).option1(question.getOption1()).option2(question.getOption2()).option3(question.getOption3()).option4(question.getOption4()).build();
     }
 }

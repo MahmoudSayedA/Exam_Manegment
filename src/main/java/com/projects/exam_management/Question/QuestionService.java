@@ -4,18 +4,22 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class QuestionService {
-private QuestionRepo questionRepo;
-private OptionalAnswerRepo optionalAnswerRepo;
-    public int countByCourseId(int id){
-        List<Question> filterExam=new ArrayList<>();
-        filterExam=findAllQuestion();
-        int count=0;
-        for (Question exam : filterExam) {
-            if(exam.getCourse().getCourseId()==id){
+
+    private QuestionRepo questionRepo;
+
+    public QuestionService(QuestionRepo questionRepo) {
+        this.questionRepo = questionRepo;
+    }
+
+    public long countByCourseId(int id){
+        List<Question> questions=new ArrayList<>();
+        questions=findAllQuestion();
+        long count=0;
+        for (Question question : questions) {
+            if(question.getCourse().getCourseId()==id){
                 count++;
             }
         }
@@ -23,11 +27,11 @@ private OptionalAnswerRepo optionalAnswerRepo;
     }
 
     public int countByDoctorId(int id){
-        List<Question> filterExam=new ArrayList<>();
-        filterExam=findAllQuestion();
+        List<Question> questions=new ArrayList<>();
+        questions=findAllQuestion();
         int count=0;
-        for (Question exam : filterExam) {
-            if(exam.getDoctor().getDoctorId()==id){
+        for (Question question : questions) {
+            if(question.getDoctor().getDoctorId()==id){
                 count++;
             }
         }
@@ -36,6 +40,7 @@ private OptionalAnswerRepo optionalAnswerRepo;
     public QuestionDTO findByQuestionId(int id){
         return QuestionDTO.toDTO(questionRepo.findById(id).orElseThrow());
     }
+
     public QuestionDTO add(Question question){
         return QuestionDTO.toDTO(questionRepo.save(question));
     }
@@ -45,10 +50,11 @@ private OptionalAnswerRepo optionalAnswerRepo;
         cur.setId(question.getId());
         cur.setCourse(question.getCourse());
         cur.setAnswer(question.getAnswer());
-        cur.setLevel(question.getLevel());
+        cur.setOption1(question.getOption1());
+        cur.setOption2(question.getOption2());
+        cur.setOption3(question.getOption3());
+        cur.setOption4(question.getOption4());
         cur.setDoctor(question.getDoctor());
-        cur.setOptions(question.getOptions());
-        cur.setType(question.getType());
         cur.setProblem(question.getProblem());
         return QuestionDTO.toDTO(questionRepo.save(cur));
     }
@@ -62,30 +68,34 @@ private OptionalAnswerRepo optionalAnswerRepo;
         }
     }
 
-    public QuestionDTO updateOptional(int id,OptionalAnswer old,OptionalAnswer news){
+    public QuestionDTO updateOptional(int id,List<String> options){
         Question optionalAnswer=new Question();
         optionalAnswer=questionRepo.findById(id).orElseThrow();
-        optionalAnswer.setOptions(news.getQestion().getOptions());
-       return QuestionDTO.toDTO(questionRepo.save(optionalAnswer));
+        optionalAnswer.setOption1(options.get(0));
+        optionalAnswer.setOption2(options.get(1));
+        optionalAnswer.setOption3(options.get(2));
+        optionalAnswer.setOption4(options.get(3));
+        return QuestionDTO.toDTO(questionRepo.save(optionalAnswer));
     }
-    public OptionalAnswer addOptional(int questionId,OptionalAnswer optionalAnswer){
-        Optional<Question> optionals=questionRepo.findById(questionId);
-        ArrayList<OptionalAnswer>listOptional= optionals.orElseThrow().getOptions();
-        listOptional.add(optionalAnswer);
-        optionals.orElseThrow().setOptions(listOptional);
-        return optionalAnswer;
-
+    public List<String> addOptional(int questionId,List<String> options){
+           Question optionalAnswer=new Question();
+            optionalAnswer=questionRepo.findById(questionId).orElseThrow();
+            optionalAnswer.setOption1(options.get(0));
+            optionalAnswer.setOption2(options.get(1));
+            optionalAnswer.setOption3(options.get(2));
+            optionalAnswer.setOption4(options.get(3));
+            questionRepo.save(optionalAnswer);
+            return options;
     }
-    public boolean deleteOption(int questionId,OptionalAnswer optionalAnswer){
-        Optional<Question> optionals=questionRepo.findById(questionId);
-       List<OptionalAnswer>listOptional= optionals.orElseThrow().getOptions();
-        for (OptionalAnswer answer : listOptional) {
-            if(answer.getId()==questionId){
-                optionalAnswerRepo.delete(answer);
-                return true;
-            }
-        }
-        return false;
+    public boolean deleteOption(int questionId,List<String> options){
+        Question optionalAnswer=new Question();
+        optionalAnswer=questionRepo.findById(questionId).orElseThrow();
+        optionalAnswer.setOption1(null);
+        optionalAnswer.setOption2(null);
+        optionalAnswer.setOption3(null);
+        optionalAnswer.setOption4(null);
+        questionRepo.save(optionalAnswer);
+        return true;
     }
     public List<Question> findAllByCourseId(int id){
         List<Question> listCourses=new ArrayList<>();
