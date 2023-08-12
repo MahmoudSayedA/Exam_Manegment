@@ -43,7 +43,7 @@ public class ExamController {
         return examService.findByCourseId(id);
     }
     @PostMapping("/insert")
-    public Exam insert(@PathVariable Exam exam){
+    public ExamDTO insert(@RequestBody Exam exam) {
         return examService.addExam(exam);
     }
     @PostMapping("/deleteByQuestionId")

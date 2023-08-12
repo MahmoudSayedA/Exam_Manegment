@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "exam")
 public class Exam {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String  examURL;
     private ExamType examType;
@@ -25,7 +24,4 @@ public class Exam {
     private Course course;
     @ManyToOne
     private Doctor doctor;
-
-
-
 }

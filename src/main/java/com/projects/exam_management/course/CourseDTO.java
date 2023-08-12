@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projects.exam_management.doctor.DoctorDTO;
 
 import lombok.AllArgsConstructor;
@@ -36,7 +37,5 @@ public class CourseDTO {
         courses.forEach(course -> dtos.add(CourseDTO.toDTO(course)));
         return dtos;
     }
-
-
 
 }

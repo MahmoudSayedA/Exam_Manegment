@@ -32,16 +32,18 @@ public class QuestionController {
     }
 
     @PostMapping("/insert")
-    public QuestionDTO insert(@PathVariable Question question){
+    public QuestionDTO insert(@RequestBody Question question) {
         return questionService.add(question);
     }
+
+    @PostMapping("/updateQuestion")
+    public QuestionDTO updateQuestion(@RequestBody Question question) {
+        return questionService.update(question);
+    }
+
     @PostMapping("/deleteByQuestion/{id}")
     public boolean deleteByQuestionId(@PathVariable int id){
         return questionService.deleteByQuestionId(id);
-    }
-    @PostMapping("/updateQuestion")
-    public QuestionDTO updateQuestion(@PathVariable Question question){
-        return questionService.update(question);
     }
 
 

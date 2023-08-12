@@ -1,5 +1,10 @@
 package com.projects.exam_management.exam;
 
+import com.projects.exam_management.course.Course;
+import com.projects.exam_management.course.CourseRepo;
+import com.projects.exam_management.course.CourseService;
+import com.projects.exam_management.doctor.Doctor;
+import com.projects.exam_management.doctor.DoctorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +16,10 @@ public class ExamService {
 
     @Autowired
     private ExamRepo examRepo;
+    @Autowired
+    private CourseRepo courseRepo;
+    @Autowired
+    private DoctorRepo doctorRepo;
 
 
     public int countByCourseId(int id){
@@ -43,11 +52,19 @@ public class ExamService {
         return examRepo.findById(id).orElseThrow();
     }
     public Exam findByCourseId(long id){
-        return examRepo.findById(id).orElseThrow();
+        for (Exam exam : examRepo.findAll()) {
+            if(exam.getCourse().getCourseId()==id){
+                return exam;
+            }
+        }
+
+        return null;
     }
-    public Exam addExam(Exam exam){
-       return examRepo.save(exam);
+    public ExamDTO addExam(Exam exam){
+        return ExamDTO.toDTO(examRepo.save(exam));
+
     }
+
 
     public Boolean deleteByQuestionId(long id){
 
