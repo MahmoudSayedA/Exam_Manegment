@@ -22,6 +22,7 @@ public class QuestionDTO {
     private int correctOption;
     private int courseId;
     private int doctorId;
+    private LevelQuestion levelQuestion;
     public static QuestionDTO toDTO(Question question){
         return QuestionDTO.builder()
                 .id(question.getId())
@@ -31,6 +32,7 @@ public class QuestionDTO {
                 .correctOption(question.getCorrectOption())
                 .courseId(question.getCourse().getCourseId())
                 .doctorId(question.getDoctor().getDoctorId())
+                .levelQuestion(question.getLevelQuestion())
                 .build();
     }
 }

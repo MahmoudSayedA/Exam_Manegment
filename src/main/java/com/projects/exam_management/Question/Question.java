@@ -21,6 +21,7 @@ public class Question {
     private String problem;
     private  TypeQuestion typeQuestion;
     private int correctOption;
+    private LevelQuestion levelQuestion;
     @OneToOne(cascade = CascadeType.ALL)
     private Course course;
 
