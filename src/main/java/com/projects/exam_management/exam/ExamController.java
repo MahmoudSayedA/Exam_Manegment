@@ -42,6 +42,10 @@ public class ExamController {
     public Exam findByCourseId(@PathVariable long id){
         return examService.findByCourseId(id);
     }
+    @GetMapping("/findAllExamByExamType/{examType}")
+    public List<Exam> findAllExamByExamType(@PathVariable String examType){
+        return examService.findAllExamByExamType(examType);
+    }
     @PostMapping("/insert")
     public ExamDTO insert(@RequestBody Exam exam) {
         return examService.addExam(exam);
