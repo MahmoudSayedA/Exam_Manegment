@@ -32,7 +32,7 @@ public class QuestionController {
     }
 
     @PostMapping("/insert")
-    public QuestionDTO insert(@RequestBody Question question) {
+    public QuestionDTO insert(@RequestBody QuestionDTO question) {
         return questionService.add(question);
     }
 
@@ -54,8 +54,8 @@ public class QuestionController {
     }
 
     @PostMapping("/deleteOption/{id}")
-    public boolean deleteOption(@PathVariable List<String> options,@PathVariable int id){
-        return questionService.deleteOption(id,options);
+    public boolean deleteOption(@PathVariable int id){
+        return questionService.deleteOptional(id);
     }
 
     @PostMapping("/updateOption/{id}")

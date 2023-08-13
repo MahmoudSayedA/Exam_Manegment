@@ -1,5 +1,12 @@
 package com.projects.exam_management.Question;
 
+import com.projects.exam_management.course.Course;
+import com.projects.exam_management.course.CourseRepo;
+import com.projects.exam_management.course.CourseService;
+import com.projects.exam_management.doctor.Doctor;
+import com.projects.exam_management.doctor.DoctorDTO;
+import com.projects.exam_management.doctor.DoctorRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,7 +15,14 @@ import java.util.List;
 @Service
 public class QuestionService {
 
+    @Autowired
     private QuestionRepo questionRepo;
+    @Autowired
+    CourseRepo courseRepo;
+    @Autowired
+    DoctorRepo doctorRepo;
+
+
 
     public QuestionService(QuestionRepo questionRepo) {
         this.questionRepo = questionRepo;
@@ -41,19 +55,32 @@ public class QuestionService {
         return QuestionDTO.toDTO(questionRepo.findById(id).orElseThrow());
     }
 
-    public QuestionDTO add(Question question){
-        return QuestionDTO.toDTO(questionRepo.save(question));
+    public QuestionDTO add(QuestionDTO questionDTO){
+            // Fetch Course and Doctor entities by their IDs
+
+        Course course = courseRepo.findById(questionDTO.getCourseId()).orElseThrow(/* handle not found */);
+            Doctor doctor = doctorRepo.findById(questionDTO.getDoctorId()).orElseThrow(/* handle not found */);
+
+            // Create and populate the Question entity
+            Question question = Question.builder()
+                    .id(questionDTO.getId())
+                    .problem(questionDTO.getProblem())
+                    .correctOption(questionDTO.getCorrectOption())
+                    .course(course) // Associate the fetched Course entity
+                    .doctor(doctor) // Associate the fetched Doctor entity
+                    .options(questionDTO.getOptions())
+                    .typeQuestion(questionDTO.getTypeQuestion())
+                    .build();
+
+            questionRepo.save(question); // Save the Question entity
+            return QuestionDTO.toDTO(question);
     }
 
-    public QuestionDTO update(Question question){
+        public QuestionDTO update(Question question){
         Question cur=new Question();
         cur.setId(question.getId());
         cur.setCourse(question.getCourse());
-        cur.setAnswer(question.getAnswer());
-        cur.setOption1(question.getOption1());
-        cur.setOption2(question.getOption2());
-        cur.setOption3(question.getOption3());
-        cur.setOption4(question.getOption4());
+        cur.setOptions(question.getOptions());
         cur.setDoctor(question.getDoctor());
         cur.setProblem(question.getProblem());
         return QuestionDTO.toDTO(questionRepo.save(cur));
@@ -71,29 +98,20 @@ public class QuestionService {
     public QuestionDTO updateOptional(int id,List<String> options){
         Question optionalAnswer=new Question();
         optionalAnswer=questionRepo.findById(id).orElseThrow();
-        optionalAnswer.setOption1(options.get(0));
-        optionalAnswer.setOption2(options.get(1));
-        optionalAnswer.setOption3(options.get(2));
-        optionalAnswer.setOption4(options.get(3));
+        optionalAnswer.setOptions(options);
         return QuestionDTO.toDTO(questionRepo.save(optionalAnswer));
     }
     public List<String> addOptional(int questionId,List<String> options){
-           Question optionalAnswer=new Question();
-            optionalAnswer=questionRepo.findById(questionId).orElseThrow();
-            optionalAnswer.setOption1(options.get(0));
-            optionalAnswer.setOption2(options.get(1));
-            optionalAnswer.setOption3(options.get(2));
-            optionalAnswer.setOption4(options.get(3));
-            questionRepo.save(optionalAnswer);
-            return options;
+        Question optionalAnswer=new Question();
+        optionalAnswer=questionRepo.findById(questionId).orElseThrow();
+        optionalAnswer.setOptions(options);
+        questionRepo.save(optionalAnswer);
+        return options;
     }
     public boolean deleteOption(int questionId,List<String> options){
         Question optionalAnswer=new Question();
         optionalAnswer=questionRepo.findById(questionId).orElseThrow();
-        optionalAnswer.setOption1(null);
-        optionalAnswer.setOption2(null);
-        optionalAnswer.setOption3(null);
-        optionalAnswer.setOption4(null);
+        optionalAnswer.setOptions(null);
         questionRepo.save(optionalAnswer);
         return true;
     }
@@ -114,4 +132,11 @@ public class QuestionService {
     }
 
 
+    public boolean deleteOptional(int id) {
+        Question optionalAnswer=new Question();
+        optionalAnswer=questionRepo.findById(id).orElseThrow();
+        optionalAnswer.setOptions(null);
+        questionRepo.save(optionalAnswer);
+        return true;
+    }
 }
