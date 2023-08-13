@@ -56,7 +56,7 @@ public class QuestionService {
         List<Question> listQuestion=new ArrayList<>();
         List<Question> allQuestion=this.findAllQuestion();
         for (Question question : allQuestion) {
-            if(question.getLevelQuestion().toString().equals(levelQuestion)){
+            if(question.getLevelQuestion().toString().equals(levelQuestion.toUpperCase())){
                 listQuestion.add(question);
             }
         }

@@ -1,5 +1,7 @@
 package com.projects.exam_management.exam;
 
+import com.projects.exam_management.Question.Question;
+import com.projects.exam_management.Question.QuestionRepo;
 import com.projects.exam_management.course.Course;
 import com.projects.exam_management.course.CourseRepo;
 import com.projects.exam_management.course.CourseService;
@@ -17,9 +19,7 @@ public class ExamService {
     @Autowired
     private ExamRepo examRepo;
     @Autowired
-    private CourseRepo courseRepo;
-    @Autowired
-    private DoctorRepo doctorRepo;
+    private QuestionRepo questionRepo;
 
 
     public int countByCourseId(int id){
@@ -60,8 +60,15 @@ public class ExamService {
 
         return null;
     }
-    public ExamDTO addExam(Exam exam){
-        return ExamDTO.toDTO(examRepo.save(exam));
+    public Exam addExam(Exam exam){
+        List<Question> listQuestion=exam.getQuestions();
+        List<Question> NewList=new ArrayList<>();
+        for (Question question : listQuestion) {
+            NewList.add(questionRepo.findById(Math.toIntExact(question.getId())).orElseThrow());
+        }
+        exam.setQuestions(NewList);
+        examRepo.save(exam);
+        return exam;
 
     }
 
@@ -79,7 +86,7 @@ public class ExamService {
         List<Exam> listExam=new ArrayList<>();
         List<Exam> allExam=this.findAllExam();
         for (Exam exam : allExam) {
-            if(exam.getExamType().toString().equals(examType)){
+            if(exam.getExamType().toString().equals(examType.toUpperCase())){
                 listExam.add(exam);
             }
         }
