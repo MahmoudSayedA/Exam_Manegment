@@ -3,11 +3,10 @@ package com.projects.exam_management.Question;
 import com.projects.exam_management.course.Course;
 import com.projects.exam_management.doctor.Doctor;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -20,15 +19,16 @@ public class Question {
     @Id
     private Long id;
     private String problem;
-    private String answer;
-    private String option1;
-    private String option2;
-    private String option3;
-    private String option4;
-    @OneToOne
+    private  TypeQuestion typeQuestion;
+    private int correctOption;
+    @OneToOne(cascade = CascadeType.ALL)
     private Course course;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Doctor doctor;
+
+    @ElementCollection
+    private List<String> options;
 
 
 
