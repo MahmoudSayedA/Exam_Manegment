@@ -1,5 +1,8 @@
 package com.projects.exam_management.exam;
 
+import com.projects.exam_management.Question.Question;
+import com.projects.exam_management.Question.QuestionRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,6 +11,8 @@ import java.util.List;
 @RequestMapping("/exam")
 public class ExamController {
     private ExamService examService;
+    @Autowired
+    private QuestionRepo questionRepo;
 
     public ExamController(ExamService examService){
         this.examService = examService;
@@ -47,7 +52,7 @@ public class ExamController {
         return examService.findAllExamByExamType(examType);
     }
     @PostMapping("/insert")
-    public ExamDTO insert(@RequestBody Exam exam) {
+    public Exam insert(@RequestBody Exam exam) {
         return examService.addExam(exam);
     }
     @PostMapping("/deleteByQuestionId")
