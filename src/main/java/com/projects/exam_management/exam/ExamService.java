@@ -93,6 +93,17 @@ public class ExamService {
         return listExam;
     }
 
+    public Exam createExam(Exam exam,int NumberOfQuestion){
+        List<Question> listQuestion=new ArrayList<>();
+        for (int i =1; i <=NumberOfQuestion; i++) {
+            listQuestion.add(questionRepo.findById(NumberOfQuestion).orElseThrow());
+        }
+        exam.setQuestions(listQuestion);
+        examRepo.save(exam);
+        return exam;
+    }
+
+
 
 
 
