@@ -30,6 +30,10 @@ public class QuestionController {
     public List<Question> findByCourseId(@PathVariable int id){
         return questionService.findAllByCourseId(id);
     }
+    @GetMapping("/listQuestionByLevel/{levelQuestion}")
+    public List<Question> listQuestionByLevel(@PathVariable String levelQuestion){
+        return questionService.findAllByLevelQuestion(levelQuestion);
+    }
 
     @PostMapping("/insert")
     public QuestionDTO insert(@RequestBody QuestionDTO question) {

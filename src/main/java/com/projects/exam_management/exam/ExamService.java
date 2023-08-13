@@ -75,6 +75,17 @@ public class ExamService {
                 }
     }
 
+    public List<Exam> findAllExamByExamType(String examType){
+        List<Exam> listExam=new ArrayList<>();
+        List<Exam> allExam=this.findAllExam();
+        for (Exam exam : allExam) {
+            if(exam.getExamType().toString().equals(examType)){
+                listExam.add(exam);
+            }
+        }
+        return listExam;
+    }
+
 
 
 
