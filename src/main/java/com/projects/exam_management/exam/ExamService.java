@@ -93,10 +93,25 @@ public class ExamService {
         return listExam;
     }
 
-    public Exam createExam(Exam exam,int NumberOfQuestion){
+    public Exam createExam(Exam exam,int NumberOfEasyQuestion,int NumberOfMediumQuestion,int NumberOfHardQuestion){
         List<Question> listQuestion=new ArrayList<>();
-        for (int i =1; i <=NumberOfQuestion; i++) {
-            listQuestion.add(questionRepo.findById(NumberOfQuestion).orElseThrow());
+        List<Question> allQuestion=questionRepo.findAll();
+        for (Question question : allQuestion) {
+            if(question.getLevelQuestion().toString().equals("EASY")){
+                listQuestion.add(question);
+                NumberOfEasyQuestion--;
+            }
+            if(question.getLevelQuestion().toString().equals("MEDIUM")){
+                listQuestion.add(question);
+                NumberOfMediumQuestion--;
+            }
+            if(question.getLevelQuestion().toString().equals("HARD")){
+                listQuestion.add(question);
+                NumberOfHardQuestion--;
+            }
+            if(NumberOfEasyQuestion==0 && NumberOfMediumQuestion==0 && NumberOfHardQuestion==0){
+                break;
+            }
         }
         exam.setQuestions(listQuestion);
         examRepo.save(exam);

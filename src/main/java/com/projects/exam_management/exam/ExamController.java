@@ -55,9 +55,9 @@ public class ExamController {
     public Exam insert(@RequestBody Exam exam) {
         return examService.addExam(exam);
     }
-    @PostMapping("/generate/{NumberQuestion}")
-    public Exam insertQuestion(@RequestBody Exam exam,@PathVariable int NumberQuestion) {
-        return examService.createExam(exam,NumberQuestion);
+    @PostMapping("/generate")
+    public Exam insertQuestion(@RequestBody Exam exam,@RequestParam int NumberOfEasyQuestion,@RequestParam int NumberOfMediumQuestion,@RequestParam int NumberOfHardQuestion){
+        return examService.createExam(exam,NumberOfEasyQuestion,NumberOfMediumQuestion,NumberOfHardQuestion);
     }
     @PostMapping("/deleteByQuestionId")
     public boolean deleteByQuestionId(@PathVariable int id){
