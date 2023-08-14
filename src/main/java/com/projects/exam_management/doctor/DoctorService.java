@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import com.projects.exam_management.Error.RecordNotFondException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.projects.exam_management.course.CourseService;
@@ -15,16 +17,26 @@ public class DoctorService {
     DoctorRepo doctorRepo;
     @Autowired
     CourseService courseService;
+    @Autowired
+    private MessageSource messageSource;
 
     public Doctor findByEmail(String email) {
         return this.doctorRepo.findByEmail(email).orElse(null);
     }
 
     public DoctorDTO findByDoctorId(int id) {
+
         Optional<Doctor> entity= this.doctorRepo.findById(id);
         if(entity.isPresent())
             return DoctorDTO.toDTO(entity.get());
-        else throw new RecordNotFondException("Doctor with id: "+id+" not found");
+
+
+        else{
+            String [] mesparam = {id+""};
+
+            String message = messageSource.getMessage("validation.RecordNotFind.message",mesparam, LocaleContextHolder.getLocale());
+            throw new RecordNotFondException(message);
+        }
     }
 
     public DoctorDTO add(Doctor doctorDTO) {
