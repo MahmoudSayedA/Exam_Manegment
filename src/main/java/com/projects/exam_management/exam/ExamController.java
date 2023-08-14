@@ -17,7 +17,7 @@ public class ExamController {
     public ExamController(ExamService examService){
         this.examService = examService;
     }
-    @GetMapping("/findAll")
+    @GetMapping("")
     public List<Exam> findAll(){
         return examService.findAllExam();
     }
@@ -38,7 +38,7 @@ public class ExamController {
         return examService.findByExamUrl(id);
     }
 
-    @GetMapping("/findExamId/{id}")
+    @GetMapping("/{id}")
     public Exam findExamId(@PathVariable int id ){
         return examService.findExamById(id);
     }
@@ -59,7 +59,7 @@ public class ExamController {
     public Exam insertQuestion(@RequestBody Exam exam,@RequestParam int NumberOfEasyQuestion,@RequestParam int NumberOfMediumQuestion,@RequestParam int NumberOfHardQuestion){
         return examService.createExam(exam,NumberOfEasyQuestion,NumberOfMediumQuestion,NumberOfHardQuestion);
     }
-    @PostMapping("/deleteByQuestionId")
+    @DeleteMapping("/{Id}")
     public boolean deleteByQuestionId(@PathVariable int id){
         return examService.deleteByQuestionId(id);
     }
