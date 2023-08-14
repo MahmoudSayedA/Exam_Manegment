@@ -10,7 +10,7 @@ import java.util.List;
 public class QuestionController {
     @Autowired
     private QuestionService questionService;
-    @GetMapping("/findAll")
+    @GetMapping("")
     public List<Question> findAll(){
         return questionService.findAllQuestion();
     }
@@ -22,7 +22,7 @@ public class QuestionController {
     public int countByDoctorId(@PathVariable int id){
         return questionService.countByDoctorId(id);
     }
-    @GetMapping("/findQuestionBy/{id}")
+    @GetMapping("/{id}")
     public QuestionDTO findQuestionById(@PathVariable int id){
         return questionService.findByQuestionId(id);
     }
@@ -30,7 +30,7 @@ public class QuestionController {
     public List<Question> findByCourseId(@PathVariable int id){
         return questionService.findAllByCourseId(id);
     }
-    @GetMapping("/listQuestionByLevel/{levelQuestion}")
+    @GetMapping("/{levelQuestion}")
     public List<Question> listQuestionByLevel(@PathVariable String levelQuestion){
         return questionService.findAllByLevelQuestion(levelQuestion);
     }
@@ -40,29 +40,28 @@ public class QuestionController {
         return questionService.add(question);
     }
 
-    @PostMapping("/updateQuestion")
+    @PutMapping("/updateQuestion")
     public QuestionDTO updateQuestion(@RequestBody Question question) {
         return questionService.update(question);
     }
 
-    @PostMapping("/deleteByQuestion/{id}")
+    @DeleteMapping("/{id}")
     public boolean deleteByQuestionId(@PathVariable int id){
         return questionService.deleteByQuestionId(id);
     }
 
 
-//add option
     @PostMapping("/addOption/{id}")
     public List<String> addOption(@PathVariable List<String> options, @PathVariable int id){
         return questionService.addOptional(id,options);
     }
 
-    @PostMapping("/deleteOption/{id}")
+    @DeleteMapping("/deleteOption/{id}")
     public boolean deleteOption(@PathVariable int id){
         return questionService.deleteOptional(id);
     }
 
-    @PostMapping("/updateOption/{id}")
+    @PutMapping("/{id}")
     public QuestionDTO updateOption(@PathVariable List<String>options ,@PathVariable int id){
         return questionService.updateOptional(id,options);
     }
